@@ -1,4 +1,5 @@
 import { useState } from "react";
+import StarRating from "./starRating";
 
 const tempMovieData = [
   {
@@ -50,11 +51,10 @@ const tempWatchedData = [
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
 
-function NavBar({movies}) {
+function NavBar({children}) {
   return (<nav className="nav-bar">
     <Logo></Logo>
-    <Search></Search>
-    <NumResults movies={movies}></NumResults>
+    {children}
   </nav>)
 }
 
@@ -106,39 +106,18 @@ function MoviesList({movies}){
   )
 }
 
-function ListBox({movies}){
-  const [isOpen1, setIsOpen1] = useState(true);
+function Box({children}){
+  const [isOpen, setIsOpen] = useState(true);
 
   return (      
   <div className="box">
   <button
     className="btn-toggle"
-    onClick={() => setIsOpen1((open) => !open)}
+    onClick={() => setIsOpen((open) => !open)}
   >
-    {isOpen1 ? "–" : "+"}
+    {isOpen ? "–" : "+"}
   </button>
-  {isOpen1 && <MoviesList movies={movies}></MoviesList>}
-</div>)
-}
-
-function WatchedBox(){
-  const [watched, setWatched] = useState(tempWatchedData);
-  const [isOpen2, setIsOpen2] = useState(true);
-
-  return (
-  <div className="box">
-  <button
-    className="btn-toggle"
-    onClick={() => setIsOpen2((open) => !open)}
-  >
-    {isOpen2 ? "–" : "+"}
-  </button>
-  {isOpen2 && (
-    <>
-      <WatchedSummary watched={watched}></WatchedSummary>
-      <WatchedMoviesList watched={watched}></WatchedMoviesList>
-    </>
-  )}
+  {isOpen && children}
 </div>)
 }
 
@@ -148,11 +127,11 @@ function WatchedMovie({movie}){
     <h3>{movie.Title}</h3>
     <div>
       <p>
-        <span>⭐️</span>
+        <span>🌟</span>
         <span>{movie.imdbRating}</span>
       </p>
       <p>
-        <span>🌟</span>
+        <span>⭐️</span>
         <span>{movie.userRating}</span>
       </p>
       <p>
@@ -185,11 +164,11 @@ function WatchedSummary({watched}){
       <span>{watched.length} movies</span>
     </p>
     <p>
-      <span>⭐️</span>
+      <span>🌟</span>
       <span>{avgImdbRating}</span>
     </p>
     <p>
-      <span>🌟</span>
+      <span>⭐️</span>
       <span>{avgUserRating}</span>
     </p>
     <p>
@@ -200,24 +179,35 @@ function WatchedSummary({watched}){
 </div>)
 }
 
-function Main({movies}) {
+function Main({children}) {
 
   return (
     <main className="main">
-      <ListBox movies={movies}></ListBox>
-      <WatchedBox></WatchedBox>
+      {children}
     </main>
   )
 }
 
 export default function App() {
-
+  const [watched, setWatched] = useState(tempWatchedData);
   const [movies, setMovies] = useState(tempMovieData);
 
   return (
     <>
-      <NavBar movies={movies}></NavBar>
-      <Main movies={movies}></Main>
+      <NavBar>
+        <Search></Search>
+        <NumResults movies={movies}></NumResults>
+      </NavBar>
+      <Main>
+        <Box>
+          <MoviesList movies={movies}></MoviesList>
+        </Box>
+        <Box>
+          <WatchedSummary watched={watched}></WatchedSummary>
+          <WatchedMoviesList watched={watched}></WatchedMoviesList>
+        </Box>
+      </Main>
+      <StarRating messages={['Absolute Garbage', 'Terrible', 'Mid', 'Fire', 'PEAK!']}></StarRating>
     </>
   );
 }
