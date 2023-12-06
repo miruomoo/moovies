@@ -15,7 +15,7 @@ const textStyle = {
     lineHeight: "1",
     margin: '0',
     color,
-    fontSize: `${size/3}px`,
+    fontSize: `${size/1.5}px`,
 }
 
 function handleRating(rating){
