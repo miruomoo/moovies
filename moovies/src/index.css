@@ -10,6 +10,10 @@
   --color-red-dark: #e253a7;
 }
 
+.box::-webkit-scrollbar {
+  display: none;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -54,8 +58,10 @@ body {
   max-width: 42rem;
   background-color: var(--color-background-500);
   border-radius: 0.9rem;
-  /* overflow: scroll; */
+  overflow: scroll;
   position: relative;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .loader {
@@ -139,7 +145,13 @@ body {
 .list {
   list-style: none;
   padding: 0.8rem 0;
-  /* overflow: scroll; */
+  overflow: scroll;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.list::-webkit-scrollbar {
+  display: none;
 }
 
 .list-watched {
