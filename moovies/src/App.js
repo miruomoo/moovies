@@ -124,8 +124,8 @@ function Box({children}){
 
 function WatchedMovie({movie}){
   return (    <li key={movie.imdbID}>
-    <img src={movie.Poster} alt={`${movie.Title} poster`} />
-    <h3>{movie.Title}</h3>
+    <img src={movie.poster} alt={`${movie.title} poster`} />
+    <h3>{movie.title}</h3>
     <div>
       <p>
         <span>🌟</span>
@@ -201,9 +201,10 @@ function ErrorMessage({message}){
 
 const KEY = '737aa262'
 
-function MovieDetails({selectedId, onCloseMovie}){
+function MovieDetails({selectedId, onCloseMovie, onAddWatched, addedMovie}){
   const [movie, setMovie] = useState({})
   const [isLoading, setIsLoading] = useState(false)
+  const [userRating, setUserRating] = useState("")
 
   const {Title: title, Year: year, Poster: poster, Runtime: runtime, imdbRating, Plot: plot, Released: released,
   Actors: actors, Director: director, Genre: genre} = movie;
@@ -220,6 +221,20 @@ function MovieDetails({selectedId, onCloseMovie}){
     getMovieDetails();
   }, [selectedId]);
 
+  function handleAdd(){
+    const newWatcedMovie = {
+      imdbID: selectedId,
+      title,
+      year,
+      poster,
+      imdbRating: Number(imdbRating),
+      runtime: Number(runtime.split(' ').at(0)),
+      userRating,
+    }
+    onAddWatched(newWatcedMovie);
+    onCloseMovie();
+  }
+
   return (<div className="details">
 { isLoading?<Loader></Loader>:<><header>
     <button className="btn-back" onClick={onCloseMovie}>
@@ -235,7 +250,9 @@ function MovieDetails({selectedId, onCloseMovie}){
     </header>
     <section>
       <div className="rating">
-      <StarRating maxRating={10} size={25}></StarRating>
+      {!addedMovie && <StarRating maxRating={10} size={25} onSetRating={setUserRating} defaultRating={addedMovie?addedMovie.userRating:0}></StarRating>}
+      {addedMovie && <p>You rated this movie {addedMovie.userRating}/10 <span>⭐</span></p>}
+      {userRating>0 && (<button className="btn-add" onClick={handleAdd}>+ Add to List</button>)}
       </div>
       <p><em>{plot}</em></p>
       <p>Starring: {actors}</p>
@@ -251,12 +268,20 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [selectedId, setSelectedId] = useState(null);
+  const [isWatched, setIsWatched] = useState(null);
 
   function handleSelectMovie(id){
+    let addedMovie = null;
     if (id===selectedId){
       setSelectedId(null);
     }else{
       setSelectedId(id);
+    }
+    addedMovie = watched.find( movie => movie['imdbID'] === id)
+    if (addedMovie){
+      setIsWatched(addedMovie)
+    }else{
+      setIsWatched(null)
     }
   }
 
@@ -309,8 +334,8 @@ export default function App() {
           {error && <ErrorMessage message={error}></ErrorMessage>}
         </Box>
         <Box>
-          {selectedId? <MovieDetails selectedId={selectedId} onCloseMovie={handleCloseMovie}
-          onAddWatched={handleAddWatched}/>:
+          {selectedId? <MovieDetails
+           selectedId={selectedId} onCloseMovie={handleCloseMovie} onAddWatched={handleAddWatched} addedMovie={isWatched}/>:
           <>
           <WatchedSummary watched={watched}></WatchedSummary>
           <WatchedMoviesList watched={watched}></WatchedMoviesList>
