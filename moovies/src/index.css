@@ -45,6 +45,25 @@ body {
   border-radius: 0.9rem;
 }
 
+.emptytext{
+  color: grey;
+  font-size: medium;
+}
+
+.emptybox{
+  text-align: center;
+  width: 400px;
+  height: auto;
+  margin: 0 auto;
+  padding-top: 200px;
+  position: relative;
+}
+
+.movieplaceholder{
+  max-width: 100px;
+  padding-bottom: 10px;
+}
+
 .main {
   margin-top: 2.4rem;
   height: calc(100vh - 7.2rem - 3 * 2.4rem);

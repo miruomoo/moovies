@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StarRating from "./starRating";
+import movieplaceholder from "./movieplaceholder.png";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -60,11 +61,15 @@ function MoviesList({movies, onSelectMovie}){
   )
 }
 
-function Box({children}){
+function Box({children, movieList, query}){
   const [isOpen, setIsOpen] = useState(true);
 
   return (      
   <div className="box">
+  {movieList && query.length==0 && <div className="emptybox">
+    <img className="movieplaceholder" src={movieplaceholder}></img>
+    <h1 className="emptytext">Search for a film or TV show!</h1>
+    </div>}
   <button
     className="btn-toggle"
     onClick={() => setIsOpen((open) => !open)}
@@ -216,7 +221,7 @@ function MovieDetails({selectedId, onCloseMovie, onAddWatched, addedMovie}){
 }
 
 export default function App() {
-  const [query, setQuery] = useState("jujutsu kaisen");
+  const [query, setQuery] = useState("");
   const [watched, setWatched] = useState([]);
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -287,7 +292,7 @@ export default function App() {
         <NumResults movies={movies}></NumResults>
       </NavBar>
       <Main>
-        <Box>
+        <Box movieList={true} query={query}>
           {isLoading && <Loader></Loader>}
           {!isLoading && !error && <MoviesList movies={movies}
           onSelectMovie={handleSelectMovie}></MoviesList>}
