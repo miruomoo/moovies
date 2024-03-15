@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import StarRating from "./starRating";
 import movieplaceholder from "./movieplaceholder.png";
+import { debounce } from "lodash";
 
 const average = (arr) =>
   arr.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
@@ -177,7 +178,11 @@ function MovieDetails({selectedId, onCloseMovie, onAddWatched, addedMovie}){
       setMovie(data);
       setIsLoading(false);
     }
-    getMovieDetails();
+    const debounceGetMovieDetails = debounce(getMovieDetails, 500);
+    debounceGetMovieDetails();
+    return ()=>{
+      debounceGetMovieDetails.cancel();
+    };
   }, [selectedId]);
 
   function handleAdd(){
