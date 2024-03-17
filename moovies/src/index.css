@@ -70,6 +70,7 @@ body {
   display: flex;
   gap: 2.4rem;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .box {
@@ -128,6 +129,45 @@ body {
 
   /* background-color: var(--color-background-900); */
   background-color: var(--color-primary-light);
+}
+
+@media only screen and (max-width: 600px){
+
+  .logo{
+    display: none;
+  }
+  .search{
+    width: 70vw;
+  }
+  .emptybox{
+    width: 90vw;
+    height: 450px;
+  }
+  .box{
+    width: 90vw;
+    height: 450px;
+  }
+  .list{
+    height: 450px;
+  }
+  strong{
+    font-size: x-small;
+  }
+  p{
+    font-size: small;
+  }
+  .num-results{
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 720px) {
+  .search{
+    width: 45vw;
+  }
+  .logo{
+    display: none;
+  }
 }
 
 .search::placeholder {
