@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/moovies/static/css/main.a854dc8d.css",
+    "main.css": "/moovies/static/css/main.4aad1e6b.css",
     "main.js": "/moovies/static/js/main.e4b10a78.js",
     "static/media/movieplaceholder.png": "/moovies/static/media/movieplaceholder.3254e64a895b5c21c4eb.png",
     "index.html": "/moovies/index.html",
-    "main.a854dc8d.css.map": "/moovies/static/css/main.a854dc8d.css.map",
+    "main.4aad1e6b.css.map": "/moovies/static/css/main.4aad1e6b.css.map",
     "main.e4b10a78.js.map": "/moovies/static/js/main.e4b10a78.js.map"
   },
   "entrypoints": [
-    "static/css/main.a854dc8d.css",
+    "static/css/main.4aad1e6b.css",
     "static/js/main.e4b10a78.js"
   ]
 }
