@@ -166,6 +166,15 @@ body {
   .search{
     width: 50vw;
   }
+  .num-results{
+    padding: 5px;
+  }
+  .logo{
+    padding-right: 5px;
+  }
+  .cow{
+    display: none;
+  }
 }
 
 .search::placeholder {

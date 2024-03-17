@@ -15,7 +15,7 @@ function NavBar({children}) {
 
 function Logo() {
   return (<div className="logo">
-    <span role="img">🐮</span>
+    <span role="img" className="cow">🐮</span>
     <h1>moovies</h1>
   </div>)
 }
