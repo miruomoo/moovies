@@ -138,14 +138,15 @@ body {
   }
   .search{
     width: 70vw;
+    font-size: small;
   }
   .emptybox{
     width: 90vw;
-    height: 450px;
+    height: 400px;
   }
   .box{
     width: 90vw;
-    height: 450px;
+    height: 400px;
   }
   .list{
     height: 450px;
@@ -154,19 +155,16 @@ body {
     font-size: x-small;
   }
   p{
-    font-size: small;
+    font-size: x-small;
   }
   .num-results{
     display: none;
   }
 }
 
-@media only screen and (min-width: 600px) and (max-width: 720px) {
+@media only screen and (min-width: 600px) and (max-width: 900px) {
   .search{
-    width: 45vw;
-  }
-  .logo{
-    display: none;
+    width: 50vw;
   }
 }
 
