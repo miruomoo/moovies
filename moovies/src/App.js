@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import StarRating from "./starRating";
 import movieplaceholder from "./movieplaceholder.png";
+import loading from "./loading.gif";
 import { debounce } from "lodash";
 
 const average = (arr) =>
@@ -150,7 +151,10 @@ function Main({children}) {
 }
 
 function Loader(){
-  return <p className="loader">Loading...</p>
+  return <>
+    <p className="loader">Loading...</p>
+    <img src={loading} className="loading"></img>
+    </>
 }
 
 function ErrorMessage({message}){
